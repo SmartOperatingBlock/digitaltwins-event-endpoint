@@ -21,7 +21,7 @@ namespace AdtEventEndpoint
         [FunctionName("negotiate")]
         public static SignalRConnectionInfo GetSignalRInfo(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
-            [SignalRConnectionInfo(HubName = "dt-event-endpoint-hub")] SignalRConnectionInfo connectionInfo)
+            [SignalRConnectionInfo(HubName = "dteventendpointhub")] SignalRConnectionInfo connectionInfo)
         {
             return connectionInfo;
         }
@@ -33,7 +33,7 @@ namespace AdtEventEndpoint
         [FunctionName("broadcast")]
         public static Task Observe(
             [EventGridTrigger] CloudEvent eventGridEvent,
-            [SignalR(HubName = "dt-event-endpoint-hub", ConnectionStringSetting = "AzureSignalRConnectionString")] IAsyncCollector<SignalRMessage> signalRConnection,
+            [SignalR(HubName = "dteventendpointhub", ConnectionStringSetting = "AzureSignalRConnectionString")] IAsyncCollector<SignalRMessage> signalRConnection,
             ILogger log)
         {
             // Obtain event data and construct the event object to send via SignalR
