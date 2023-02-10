@@ -7,6 +7,9 @@ local.settings.json
 # Ignore VSCode files
 .vscode
 
+# Ignore output directory
+*/output/
+
 # User-specific files
 *.suo
 *.user
