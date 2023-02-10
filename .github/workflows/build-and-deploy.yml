@@ -78,3 +78,17 @@ jobs:
         run: |
           npm install
           npx semantic-release
+
+  success:
+      runs-on: ubuntu-22.04
+      needs:
+        - build
+        - release
+      if: >-
+        always() && (
+          contains(join(needs.*.result, ','), 'failure')
+          || !contains(join(needs.*.result, ','), 'cancelled')
+        )
+      steps:
+        - name: Verify that there were no failures
+          run: ${{ !contains(join(needs.*.result, ','), 'failure') }}
