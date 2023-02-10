@@ -17,7 +17,7 @@ env:
   DOTNET_VERSION: 6.0.x
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -52,7 +52,7 @@ jobs:
         # Allow only one release at a time.
         group: release-${{ github.event.number || github.ref }}
     needs:
-      - build
+      - build-and-deploy
     runs-on: ubuntu-latest
     # Release only where secrets are available.
     if: >-
@@ -82,7 +82,7 @@ jobs:
   success:
       runs-on: ubuntu-22.04
       needs:
-        - build
+        - build-and-deploy
         - release
       if: >-
         always() && (
