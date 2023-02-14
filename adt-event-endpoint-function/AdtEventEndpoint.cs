@@ -1,3 +1,8 @@
+using System;
+using System.Net.Http;
+using Azure.Core.Pipeline;
+using Azure.DigitalTwins.Core;
+using Azure.Identity;
 using Azure.Messaging;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.Azure.WebJobs.Extensions.SignalRService;
+
+
 
 namespace AdtEventEndpoint
 {
@@ -42,6 +49,18 @@ namespace AdtEventEndpoint
             eventToClients.Add("id", eventGridEvent.Subject);
             eventToClients.Add("eventType", eventGridEvent.Type);
             eventToClients.Add("eventDateTime", eventGridEvent.Time.ToString());
+
+            // When the event involve the creation or the deletion of a reletionship then get the source's model.
+            if(eventGridEvent.Type.StartsWith("Microsoft.DigitalTwins.Relationship")) {
+                DigitalTwinsClient client = new DigitalTwinsClient(
+                    new Uri(Environment.GetEnvironmentVariable("ADT_SERVICE_URL")),
+                    new DefaultAzureCredential(),
+                    new DigitalTwinsClientOptions{ Transport = new HttpClientTransport(new HttpClient()) });
+
+                string sourceId = eventToClients["data"]["$sourceId"].ToString();
+                BasicDigitalTwin sourceDigitalTwin = client.GetDigitalTwin<BasicDigitalTwin>(sourceId).Value;
+                eventToClients["data"]["$sourceModel"] = sourceDigitalTwin.Metadata.ModelId;
+            }
             
             log.LogInformation($"New event:\n {eventToClients.ToString()}");
 
