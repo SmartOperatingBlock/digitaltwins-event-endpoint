@@ -1,3 +1,16 @@
+## [1.1.0](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/compare/1.0.0...1.1.0) (2023-02-14)
+
+
+### Features
+
+* add source model information on relationship's event ([8eea7f1](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/8eea7f1e0c4c000469d0f3dda8dac6214e9864e5))
+
+
+### Build and continuous integration
+
+* change build and deploy job name ([210f096](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/210f09664173824e53aacd3bbda13a0ab713c74b))
+* change workflow name ([a04927a](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/a04927a7524cdc5a7569edeb8b325484a429d6c2))
+
 ## 1.0.0 (2023-02-10)
 
 
