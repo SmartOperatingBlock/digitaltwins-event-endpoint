@@ -20,6 +20,13 @@ namespace AdtEventEndpoint
 {
     public static class AdtEventEndpoint
     {
+        /// <summary> Azure Digital Twin's relationships events type </summary>
+        private static readonly string relationshipEventType = "Microsoft.DigitalTwins.Relationship";
+        /// <summary> Azure Digital Twin's create Digital Twin event type </summary>
+        private static readonly string createDigitalTwinEventType = "Microsoft.DigitalTwins.Twin.Create";
+        /// <summary> Azure Digital Twin's delete Digital Twin event type </summary>
+        private static readonly string deleteDigitalTwinEventType = "Microsoft.DigitalTwins.Twin.Delete";
+
         /// <summary>A HTTP trigger function. It is used by client to be able to connect to SignalR Service.
         /// It uses the SignalRConnectionInfo input binding
         /// to generate and return valid connection information.</summary>
@@ -51,7 +58,7 @@ namespace AdtEventEndpoint
             eventToClients.Add("eventDateTime", eventGridEvent.Time.ToString());
 
             // When the event involve the creation or the deletion of a reletionship then get the source's model.
-            if(eventGridEvent.Type.StartsWith("Microsoft.DigitalTwins.Relationship")) {
+            if(eventGridEvent.Type.StartsWith(relationshipEventType)) {
                 DigitalTwinsClient client = new DigitalTwinsClient(
                     new Uri(Environment.GetEnvironmentVariable("ADT_SERVICE_URL")),
                     new DefaultAzureCredential(),
@@ -60,6 +67,10 @@ namespace AdtEventEndpoint
                 string sourceId = eventToClients["data"]["$sourceId"].ToString();
                 BasicDigitalTwin sourceDigitalTwin = client.GetDigitalTwin<BasicDigitalTwin>(sourceId).Value;
                 eventToClients["data"]["$sourceModel"] = sourceDigitalTwin.Metadata.ModelId;
+            } else if (eventGridEvent.Type.StartsWith(createDigitalTwinEventType) || eventGridEvent.Type.StartsWith(deleteDigitalTwinEventType)) {
+                // When the event involves the creation or the deletion of a Digital Twin then include the model
+                // of the Digital Twin at the root level of the event itself.
+                eventToClients.Add("model", eventToClients["data"]["$metadata"]["$model"]);
             }
             
             log.LogInformation($"New event:\n {eventToClients.ToString()}");
