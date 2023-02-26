@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/compare/1.1.0...1.2.0) (2023-02-26)
+
+
+### Features
+
+* add the model of the digital twin in lifecycle events ([b042fd1](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/b042fd1ff575c89c28e143ac60cf0b6de782a899))
+
 ## [1.1.0](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/compare/1.0.0...1.1.0) (2023-02-14)
 
 
