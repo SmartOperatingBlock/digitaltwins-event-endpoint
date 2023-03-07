@@ -55,7 +55,7 @@ namespace AdtEventEndpoint
             // Add metadata to the event object
             eventToClients.Add("id", eventGridEvent.Subject);
             eventToClients.Add("eventType", eventGridEvent.Type);
-            eventToClients.Add("eventDateTime", eventGridEvent.Time.ToString());
+            eventToClients.Add("eventDateTime", eventGridEvent.Time);
 
             // When the event involve the creation or the deletion of a reletionship then get the source's model.
             if(eventGridEvent.Type.StartsWith(relationshipEventType)) {
