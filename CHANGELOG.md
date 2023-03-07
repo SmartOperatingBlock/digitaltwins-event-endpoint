@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/compare/1.2.0...1.3.0) (2023-03-07)
+
+
+### Features
+
+* use standard iso 8601 in event date time ([723e151](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/723e15178bcbb0bab9b2ac4d963879888eb1b51c))
+
 ## [1.2.0](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/compare/1.1.0...1.2.0) (2023-02-26)
 
 
