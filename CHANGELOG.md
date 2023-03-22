@@ -1,3 +1,17 @@
+## [1.4.0](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/compare/1.3.0...1.4.0) (2023-03-22)
+
+
+### Features
+
+* add target model to relationship's event data ([7205d21](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/7205d21d8cfedb4f06e8146baa08785c66bd1bfc))
+
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.17 ([8877d0d](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/8877d0da090b0203de48214cebc20f18a9e90ed0))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.19 ([557ee83](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/557ee83733b32c3d3c9ac9f502aa5955d7f8e23b))
+* **deps:** update node.js to 18.15 ([8bcdff2](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/commit/8bcdff23a98b2bbd81e3233a120b735b794a3dfe))
+
 ## [1.3.0](https://github.com/SmartOperatingBlock/digitaltwins-event-endpoint/compare/1.2.0...1.3.0) (2023-03-07)
 
 
