@@ -57,16 +57,22 @@ namespace AdtEventEndpoint
             eventToClients.Add("eventType", eventGridEvent.Type);
             eventToClients.Add("eventDateTime", eventGridEvent.Time);
 
-            // When the event involve the creation or the deletion of a reletionship then get the source's model.
+            // When the event involve the creation or the deletion of a reletionship then get the source and target's model.
             if(eventGridEvent.Type.StartsWith(relationshipEventType)) {
                 DigitalTwinsClient client = new DigitalTwinsClient(
                     new Uri(Environment.GetEnvironmentVariable("ADT_SERVICE_URL")),
                     new DefaultAzureCredential(),
                     new DigitalTwinsClientOptions{ Transport = new HttpClientTransport(new HttpClient()) });
 
+                // Get source digital twin's model
                 string sourceId = eventToClients["data"]["$sourceId"].ToString();
                 BasicDigitalTwin sourceDigitalTwin = client.GetDigitalTwin<BasicDigitalTwin>(sourceId).Value;
                 eventToClients["data"]["$sourceModel"] = sourceDigitalTwin.Metadata.ModelId;
+
+                // Get target digital twin's model
+                string targetId = eventToClients["data"]["$targetId"].ToString();
+                BasicDigitalTwin targetDigitalTwin = client.GetDigitalTwin<BasicDigitalTwin>(targetId).Value;
+                eventToClients["data"]["$targetModel"] = targetDigitalTwin.Metadata.ModelId;
             } else if (eventGridEvent.Type.StartsWith(createDigitalTwinEventType) || eventGridEvent.Type.StartsWith(deleteDigitalTwinEventType)) {
                 // When the event involves the creation or the deletion of a Digital Twin then include the model
                 // of the Digital Twin at the root level of the event itself.
